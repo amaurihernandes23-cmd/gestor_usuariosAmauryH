@@ -1,0 +1,60 @@
+/* Fondo general */
+body {
+    background: linear-gradient(135deg, #d8c6d6, #e6dce7);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    width: 70%;
+    max-width: 700px;
+    margin: 120px auto;
+}
+
+/* Tarjeta blanca */
+.card {
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 112px;
+    text-align: center;
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Título principal */
+.card h1 {
+    color: #2f6edb;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* Botones */
+.btn {
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    margin: 5px;
+    display: inline-block;
+}
+
+/* Botón registrar */
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Botón ver usuarios */
+.btn-primary {
+    background-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
