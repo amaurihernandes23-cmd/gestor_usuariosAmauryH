@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Usuario</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+
+<h2>Editar Usuario</h2>
+
+<form method="POST" action="{{ url_for('editar_usuario', id=usuario[0]) }}">
+
+    <input type="hidden" name="id" value="{{usuario[0]}}">
+
+    <div class="mb-3">
+        <label>Usuario</label>
+        <input type="text" name="txtusuario" class="form-control" value="{{usuario[1]}}">
+    </div>
+
+    <div class="mb-3">
+        <label>Contraseña</label>
+        <input type="password" name="txtcontrasena" class="form-control" value="{{usuario[2]}}">
+    </div>
+
+    <div class="mb-3">
+        <label>Rol</label>
+        <select name="txtrol" class="form-control">
+            <option value="admin" {% if usuario[3] == 'admin' %}selected{% endif %}>Admin</option>
+            <option value="empleado" {% if usuario[3] == 'empleado' %}selected{% endif %}>Empleado</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Documento</label>
+        <input type="number" name="txtdocumento" class="form-control" value="{{usuario[4]}}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="{{ url_for('inicio') }}" class="btn btn-danger">Cancelar</a>
+
+</form>
+
+</body>
+</html>

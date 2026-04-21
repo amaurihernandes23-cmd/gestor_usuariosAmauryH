@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>REGISTRAR</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h1 class="text-center text-primary">
+            GESTOR DE USUARIOS
+        </h1>
+        <p class="dasboard- subtitle">BIENVENIDO: <strong>{{ session['usuario'] }}</strong></p>
+        <div class="text-center">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+                Registrar Usuario
+            </button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
+                Registrar empleado
+            </button>
+            <a href="{{ url_for('salir') }}" class="btn btn-danger">
+                Cerrar sesión
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4>Registrar Usuario</h4>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for('guardar_usuario') }}" method="POST">
+
+                    <input type="text" name="txtusuario" placeholder="Usuario" class="form-control mb-2" required>
+
+                    <input type="password" name="txtcontrasena" placeholder="Contraseña" class="form-control mb-2" required>
+
+                    <select name="txtrol" class="form-control mb-2" required>
+                        <option value="admin">admin</option>
+                        <option value="empleado">empleado</option>
+                    </select>
+
+                    <input type="number" name="txtdocumento" placeholder="Documento" class="form-control mb-2" required>
+
+                    <button class="btn btn-success">Guardar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalEmpleado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4>Registrar Empleado</h4>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for('registrar_empleado') }}" method="POST">
+
+                    <input type="number" name="documento" placeholder="Documento" class="form-control mb-2" required>
+
+                    <input type="text" name="nombre" placeholder="Nombre" class="form-control mb-2" required>
+
+                    <input type="text" name="apellido" placeholder="Apellido" class="form-control mb-2" required>
+
+                    <select name="cargo" class="form-control mb-2" required>
+                        <option value="gerente">Gerente</option>
+                        <option value="administrador">Admin</option>
+                        <option value="contador">Contador</option>
+                        <option value="empleado">Empleado</option>
+                    </select>
+
+                    <input type="number" name="hora_extra" placeholder="Horas extra" class="form-control mb-2" required>
+
+                    <input type="number" step="0.01" name="bonificacion" placeholder="Bonificación" class="form-control mb-2" required>
+
+                    <input type="text" name="departamento" placeholder="Departamento" class="form-control mb-2" required>
+                    <button class="btn btn-success">Guardar empleado</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- tabla -->
+<div class="container mt-4">
+    <h3>Usuarios</h3>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <td>id_usuario</td>
+                <td>Usuario</td>
+                <td>Contraseña</td>
+                <td>Rol</td>
+                <td>Documento</td>
+                <td>Opciones</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for u in user %}
+            <tr>
+                <td>{{u[0]}}</td>
+                <td>{{u[1]}}</td>
+                <td>{{u[2]}}</td>
+                <td>{{u[3]}}</td>
+                <td>{{u[4]}}</td>
+                <td>
+                    <a href="{{ url_for('eliminarusu', id=u[0]) }}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar usuario?')">
+                       Eliminar
+                    </a>
+                    <a href="{{ url_for('editar_usuario', id=u[0]) }}" class="btn btn-warning btn-sm" onclick="return confirm('¿Editar usuario?')">
+                        Editar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<!-- empleados -->
+<div class="container mt-4">
+    <h3>Empleados</h3>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <td>Id</td>
+                <td>Documento</td>
+                <td>Nombre</td>
+                <td>Apellido</td>
+                <td>Cargo</td>
+                <td>Salario Bruto</td>
+                <td>Horas Extra</td>
+                <td>Bonificación</td>
+                <td>Departamento</td>
+                <td>Opciones</td>
+            
+        </thead>
+
+        <tbody>
+            {% for e in emple %}
+            <tr>
+                <td>{{ e[0] }}</td>
+                <td>{{ e[1] }}</td>
+                <td>{{ e[2] }}</td>
+                <td>{{ e[3] }}</td>
+                <td>{{ e[4] }}</td>
+                <td>{{ e[5] }}</td>
+                <td>{{ e[6] }}</td>
+                <td>{{ e[8] }}</td>
+                <td>{{ e[11] }}</td>
+                <td>
+                    <a href="{{ url_for('eliminar_empleado', id=e[0]) }}" class="btn btn-danger btn-sm">  
+                       Eliminar
+                    </a>
+
+                    <a href="{{ url_for('editar_empleado', id=e[0]) }}" class="btn btn-warning btn-sm">
+                       Editar
+                    </a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
